@@ -4,6 +4,7 @@ import { IDBCreateUserDTO, IDBUserWithPasswordDTO } from "src/db/entities/user";
 import { InternalServerError } from "src/db/errors/internal-server";
 import { UserAlreadyExistsError } from "src/db/errors/user-not-exist";
 import { UserNotFoundError } from "src/db/errors/user-not-found";
+import { JWToken } from "src/utls/jwt";
 
 export interface IAppServiceResponse {
   status: HttpStatus;
@@ -54,11 +55,17 @@ export class AppService {
     params: IDBUserWithPasswordDTO,
   ): Promise<IAppServiceResponse> {
     try {
-      const result = await this.dbService.userWithPassword(params);
+      const user = await this.dbService.userWithPassword(params);
+      const jwtToken = JWToken.singToken(user);
+
       return {
         status: HttpStatus.OK,
         json: {
-          result,
+          result: {
+            userId: user.id,
+            login: user.login,
+            token: jwtToken
+          },
         },
       };
     } catch (e) {

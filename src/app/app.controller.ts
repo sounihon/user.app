@@ -1,5 +1,6 @@
 import { Body, Controller, Post, Res } from "@nestjs/common";
-import { response, Response } from "express";
+import { Response } from "express";
+import {sign, verify} from 'jsonwebtoken';
 import { IDBCreateUserDTO, IDBUserWithPasswordDTO } from "src/db/entities/user";
 import { AppService } from "./app.service";
 
