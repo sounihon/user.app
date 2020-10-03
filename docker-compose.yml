@@ -12,7 +12,9 @@ services:
     ports:
       - ${SERVER_PORT}:${SERVER_PORT}
       - 9229:9229
-    command: ["sh", "./default_entrypoint.sh"]
+    command: >
+      sh -c "npm run migrations-up &&
+             npm run start:debug"
     env_file:
       - .env
     networks:

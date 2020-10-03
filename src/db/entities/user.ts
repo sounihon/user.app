@@ -13,3 +13,13 @@ export class IDBCreateUserDTO {
   @IsString()
   password: string;
 }
+
+export class IDBUserWithPasswordDTO {
+  @IsNotEmpty()
+  @IsString()
+  login: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+}
