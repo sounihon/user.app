@@ -23,3 +23,7 @@ export class IDBUserWithPasswordDTO {
   @IsString()
   password: string;
 }
+
+export class ILoginWithJwtDTO {
+
+}

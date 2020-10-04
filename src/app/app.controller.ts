@@ -1,7 +1,7 @@
-import { Body, Controller, Post, Res } from "@nestjs/common";
-import { Response } from "express";
+import { Body, Controller, Param, Post, Res } from "@nestjs/common";
+import { response, Response } from "express";
 import {sign, verify} from 'jsonwebtoken';
-import { IDBCreateUserDTO, IDBUserWithPasswordDTO } from "src/db/entities/user";
+import { IDBCreateUserDTO, IDBUserWithPasswordDTO, ILoginWithJwtDTO } from "src/db/entities/user";
 import { AppService } from "./app.service";
 
 @Controller("user")
@@ -20,5 +20,10 @@ export class AppController {
     const res  = await this.appService.loginUser(params);
     response.status(res.status);
     response.json(res.json);
+  }
+
+  @Post("/login-jwt")
+  async loginJWT(@Res() response: Response, @Body() Params: ILoginWithJwtDTO) {
+    
   }
 }
